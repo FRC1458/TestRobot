@@ -33,6 +33,8 @@ public class Robot extends TimedRobot {
   private final Joystick stick2 = new Joystick(1);
   private final XboxController controller = new XboxController(0);
 
+  private boolean isOpen = false;
+
   public void robotInit() {
     leftMotor.setNeutralMode(NeutralMode.Brake);
     rightMotor.setNeutralMode(NeutralMode.Brake);
@@ -58,17 +60,14 @@ public class Robot extends TimedRobot {
     armMotor.set(stick2.getY());
 
     if (controller.getAButton()) {
-      servo.setAngle(180);
-    }
-    if (controller.getBButton()) {
-      servo.setAngle(0);
-    }
-
-    if (controller.getXButton()) {
-      solenoid.set(true);
-    }
-    if (controller.getYButton()) {
-      solenoid.set(false);
+      isOpen = !isOpen;
+      solenoid.set(isOpen);
+      if (isOpen) {
+        servo.setAngle(0);
+      }
+      else {
+        servo.setAngle(180);
+      }
     }
   }
 }
