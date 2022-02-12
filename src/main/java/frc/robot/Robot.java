@@ -22,33 +22,33 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class Robot extends TimedRobot {
   private final WPI_TalonSRX leftMotor = new WPI_TalonSRX(RobotConstants.leftMotorID);
   private final WPI_TalonSRX rightMotor = new WPI_TalonSRX(RobotConstants.rightMotorID);
-  //private final WPI_TalonSRX leftMotor2 = new WPI_TalonSRX(RobotConstants.leftMotor2ID);
-  //private final WPI_TalonSRX rightMotor2 = new WPI_TalonSRX(RobotConstants.rightMotor2ID);
-  private final WPI_TalonSRX armMotor = new WPI_TalonSRX(RobotConstants.armMotorID);
+  private final WPI_TalonSRX leftMotor2 = new WPI_TalonSRX(RobotConstants.leftMotor2ID);
+  private final WPI_TalonSRX rightMotor2 = new WPI_TalonSRX(RobotConstants.rightMotor2ID);
+  //private final WPI_TalonSRX armMotor = new WPI_TalonSRX(RobotConstants.armMotorID);
   private final DifferentialDrive robotDrive = new DifferentialDrive(leftMotor, rightMotor);
-  private final Servo servo = new Servo(0);
-  private final Solenoid solenoid = new Solenoid(0);
+  //private final Servo servo = new Servo(0);
+  //private final Solenoid solenoid = new Solenoid(0);
 
-  private final Joystick stick = new Joystick(0);
-  private final Joystick stick2 = new Joystick(1);
-  private final XboxController controller = new XboxController(0);
+  private final Joystick stick = new Joystick(1);
+  private final Joystick stick2 = new Joystick(0);
+  //private final XboxController controller = new XboxController(0);
 
-  private boolean isOpen = false;
-  private boolean previousAButton = false;
+  //private boolean isOpen = false;
+  //private boolean previousAButton = false;
 
   public void robotInit() {
     leftMotor.setNeutralMode(NeutralMode.Brake);
     rightMotor.setNeutralMode(NeutralMode.Brake);
-    //leftMotor2.setNeutralMode(NeutralMode.Brake);
-    //rightMotor2.setNeutralMode(NeutralMode.Brake);
+    leftMotor2.setNeutralMode(NeutralMode.Brake);
+    rightMotor2.setNeutralMode(NeutralMode.Brake);
 
-    //leftMotor2.follow(leftMotor);
-    //rightMotor2.follow(rightMotor);
+    leftMotor2.follow(leftMotor);
+    rightMotor2.follow(rightMotor);
   }
 
   public void teleopInit() {
-    servo.setAngle(0);
-    solenoid.set(false);
+    //servo.setAngle(0);
+    //solenoid.set(false);
   }
 
   @Override
@@ -56,20 +56,10 @@ public class Robot extends TimedRobot {
     // Drive with arcade drive.
     // That means that the Y axis drives forward
     // and backward, and the X turns left and right.
-    robotDrive.arcadeDrive(stick.getY(), -stick.getX());
+    robotDrive.arcadeDrive(-stick.getY(), stick.getX());
 
-    armMotor.set(stick2.getY());
+    //armMotor.set(stick2.getY());
 
-    if (controller.getAButton() != previousAButton) {
-      isOpen = !isOpen;
-      solenoid.set(isOpen);
-      if (isOpen) {
-        servo.setAngle(0);
-      }
-      else {
-        servo.setAngle(180);
-      }
-      previousAButton = controller.getAButton();
-    }
+    //leftMotor.set(stick.getY());
   }
 }
