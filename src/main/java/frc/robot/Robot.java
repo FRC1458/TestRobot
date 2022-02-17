@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 
 /**
  * This is a demo program showing the use of the DifferentialDrive class. Runs the motors with
@@ -31,6 +33,9 @@ public class Robot extends TimedRobot {
 
   private final Joystick stick = new Joystick(1);
   private final Joystick stick2 = new Joystick(0);
+
+  CameraServer server = CameraServer.getInstance();
+
   //private final XboxController controller = new XboxController(0);
 
   //private boolean isOpen = false;
@@ -44,6 +49,8 @@ public class Robot extends TimedRobot {
 
     leftMotor2.follow(leftMotor);
     rightMotor2.follow(rightMotor);
+    server.startAutomaticCapture();
+
   }
 
   public void teleopInit() {
